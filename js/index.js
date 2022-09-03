@@ -15,7 +15,7 @@ const loadCatagory = () =>{
         const CategoryDiv =document.createElement('div')
           CategoryDiv.classList.add('col')
           CategoryDiv.innerHTML=`
-          <button id="link" onclick="displaynews('${items.category_id}')"class="fs-5 btn btn-light text-decoration-none text-black" href="">${items.category_name}</buttom>
+          <button id="link" onclick="displaynews('${items.category_id}')"class="fs-5 btn btn-outline fw-semibold shadow p-3 mb-5 bg-body rounded" href="">${items.category_name}</buttom>
           `;
           //return items.category_id
           //console.log(items.category_id)
@@ -25,9 +25,9 @@ const loadCatagory = () =>{
    
 }
   
-//neews 
+//neews try catch function
  const displaynews = async category_id =>{
-    //console.log(category_id)
+   
     //loader start
     spinerchanges(true)
       const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
@@ -56,15 +56,15 @@ const loadCatagory = () =>{
         const NewFeedDiv =document.createElement('div')
           NewFeedDiv.classList.add('row')
           NewFeedDiv.innerHTML=`
-          <div class="col-md-4 px-3 py-3">
+          <div class="col-md-4  py-3">
           <img
             src="${New.image_url ? New.image_url :"No images Found."}"
             alt="Trendy Pants and Shoes"
-            class="img-fluid rounded-start"
+            class="img-fluid rounded-start  "
           />
         </div>
-        <div class="col-md-8 p-1">
-                <div class="card-body">
+        <div class="col-md-8 ">
+                <div class="card-body ">
                   <h5 class="card-title">${New.title? New.title :"Not Found."}</h5>
                   <p class="card-text">
                     ${New.details? New.details.slice(0,260) :"No  Found."}
@@ -80,12 +80,12 @@ const loadCatagory = () =>{
                         alt="Black and White Portrait of a Man"
                         loading="lazy"
                       ></>
-                      <h5>${New.author.name? New.author.name :"Not Found."}</h5>
+                      <h5 class="m-1">${New.author.name? New.author.name :"Not Found."}</h5>
 
                     </small>
                     </div>
-                    <div>Rating:${New.rating.number ? New.rating.number :"Not  Found."}
-                     Viwes:${New.total_view ? New.total_view :"Not Found."}
+                    <div>Rating: ${New.rating.number ? New.rating.number :"Not  Found."}
+                    <i class="fas fa-eye"></i> ${New.total_view ? New.total_view :"Not Found."}
                     </div>
                     <div>
                     <button type="button" class="btn btn-primary fs-5" onclick="displaynewsDetails('${New._id}')" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
