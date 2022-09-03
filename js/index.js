@@ -47,36 +47,40 @@ const loadCatagory = () =>{
           NewFeedDiv.innerHTML=`
           <div class="col-md-4 p-1">
           <img
-            src="${New.image_url}"
+            src="${New.image_url ? New.image_url :"No images Found."}"
             alt="Trendy Pants and Shoes"
             class="img-fluid rounded-start"
           />
         </div>
         <div class="col-md-8 p-1">
                 <div class="card-body">
-                  <h5 class="card-title">${New.title}</h5>
+                  <h5 class="card-title">${New.title? New.title :"Not Found."}</h5>
                   <p class="card-text">
-                    ${New.details}
+                    ${New.details? New.details :"No  Found."}
                   </p>
 
                   <div class="d-flex justify-content-between">
                   <div class="d-flex">  
                   <small class="d-flex">
                     <img
-                        src="${New.thumbnail_url}"
+                        src="${New.thumbnail_url? New.thumbnail_url :"No images Found."}"
                         class="rounded-circle"
                         height="25"
                         alt="Black and White Portrait of a Man"
                         loading="lazy"
                       ></>
-                      <h5>${New.author.name}</h5>
+                      <h5>${New.author.name? New.author.name :"Not Found."}</h5>
 
                     </small>
                     </div>
-                    <div>Rating:${New.rating.number}
-                     Viwes:${New.total_view}
+                    <div>Rating:${New.rating.number ? New.rating.number :"Not  Found."}
+                     Viwes:${New.total_view ? New.total_view :"Not Found."}
                     </div>
-                    <div><button class="btn btn-primary fs-5">See More</button></div>
+                    <div>
+                    <button type="button" class="btn btn-primary fs-5" onclick="displaynewsDetails('${New._id}')" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                         See More
+</button>
+                    </div>
                   </div>
 
                   
@@ -84,8 +88,31 @@ const loadCatagory = () =>{
                 </div>
               </div>
           `;
-          
+          //
                 ContainerNewsFeed.appendChild(NewFeedDiv)
        })
     }
+    //indivitual id load 
+    const displaynewsDetails = async news_id =>{
+      console.log(news_id)
+  
+        const url =`https://openapi.programming-hero.com/api/news/${news_id}`
+       const res = await fetch(url);
+       const data = await res.json()
+        NewsDetails(data.data)
+
+     
+   }
+   const NewsDetails =SeeMoreNews =>{
+  console.log(SeeMoreNews)
+  
+  SeeMoreNews.forEach(news => {
+    console.log(news)
+    const modaltitle = document.getElementById('ModalTitleLabel')
+    modaltitle.innerText =news.title
+    
+    const NewsDetail =document.getElementById('more-details')
+  NewsDetail.innerText =news.details 
+  })
+  }
   loadCatagory()
