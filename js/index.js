@@ -15,7 +15,7 @@ const loadCatagory = () =>{
         const CategoryDiv =document.createElement('div')
           CategoryDiv.classList.add('col')
           CategoryDiv.innerHTML=`
-          <button id="link" onclick="displaynews('${items.category_id}')"class="fs-5 btn btn-outline fw-semibold shadow p-3 mb-5 bg-body rounded" href="">${items.category_name}</buttom>
+          <button id="link" onclick="displaynews('${items.category_id}')"class="fs-5 btn btn-outline fw-semibold " href="">${items.category_name}</buttom>
           `;
           //return items.category_id
           //console.log(items.category_id)
@@ -56,6 +56,7 @@ const loadCatagory = () =>{
         const NewFeedDiv =document.createElement('div')
           NewFeedDiv.classList.add('row')
           NewFeedDiv.innerHTML=`
+          <div><h2>Recent  ${NewsFeed.length } NewsItem found</h2></div>
           <div class="col-md-4  py-3">
           <img
             src="${New.image_url ? New.image_url :"No images Found."}"
@@ -71,7 +72,7 @@ const loadCatagory = () =>{
                   ...</p>
 
                   <div class="d-flex justify-content-between">
-                  <div class="d-flex">  
+                  <div class="d-flex p-2 m-1">  
                   <small class="d-flex">
                     <img
                         src="${New.thumbnail_url? New.thumbnail_url :"No images Found."}"
@@ -84,7 +85,7 @@ const loadCatagory = () =>{
 
                     </small>
                     </div>
-                    <div>Rating: ${New.rating.number ? New.rating.number :"Not  Found."}
+                    <div class="m-1">Rating: ${New.rating.number ? New.rating.number :"Not  Found."}<br>
                     <i class="fas fa-eye"></i> ${New.total_view ? New.total_view :"Not Found."}
                     </div>
                     <div>
