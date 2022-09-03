@@ -28,7 +28,8 @@ const loadCatagory = () =>{
 //neews 
  const displaynews = async category_id =>{
     //console.log(category_id)
-
+    //loader start
+    spinerchanges(true)
       const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
      const res = await fetch(url);
      const data = await res.json()
@@ -39,13 +40,23 @@ const loadCatagory = () =>{
  const displayNewsitem = NewsFeed =>{
        console.log(NewsFeed)
        ContainerNewsFeed = document.getElementById('container-newsfeed')
+       const Noresult =document.getElementById('Showresult')
+       
+       //no Result massage
+       if(NewsFeed.length === 0){
+        Noresult.classList.remove('d-none')
+        spinerchanges(false)
+       }
+       else{
+        Noresult.classList.add('d-none')
+       }
        ContainerNewsFeed.innerHTML=``;
        NewsFeed.forEach(New => {
         console.log(New)
         const NewFeedDiv =document.createElement('div')
           NewFeedDiv.classList.add('row')
           NewFeedDiv.innerHTML=`
-          <div class="col-md-4 p-1">
+          <div class="col-md-4 px-3 py-3">
           <img
             src="${New.image_url ? New.image_url :"No images Found."}"
             alt="Trendy Pants and Shoes"
@@ -56,8 +67,8 @@ const loadCatagory = () =>{
                 <div class="card-body">
                   <h5 class="card-title">${New.title? New.title :"Not Found."}</h5>
                   <p class="card-text">
-                    ${New.details? New.details :"No  Found."}
-                  </p>
+                    ${New.details? New.details.slice(0,260) :"No  Found."}
+                  ...</p>
 
                   <div class="d-flex justify-content-between">
                   <div class="d-flex">  
@@ -79,7 +90,7 @@ const loadCatagory = () =>{
                     <div>
                     <button type="button" class="btn btn-primary fs-5" onclick="displaynewsDetails('${New._id}')" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                          See More
-</button>
+                      </button>
                     </div>
                   </div>
 
@@ -90,6 +101,8 @@ const loadCatagory = () =>{
           `;
           //
                 ContainerNewsFeed.appendChild(NewFeedDiv)
+                //stop loader
+                spinerchanges(false)
        })
     }
     //indivitual id load 
@@ -115,4 +128,14 @@ const loadCatagory = () =>{
   NewsDetail.innerText =news.details 
   })
   }
-  loadCatagory()
+  const spinerchanges =isloading=>{
+    const spinner = document.getElementById("loader");
+    if(isloading){
+      spinner.classList.remove("d-none");
+    }
+    else{
+      spinner.classList.add('d-none')
+    }
+    
+  }
+ loadCatagory()
