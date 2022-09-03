@@ -46,17 +46,22 @@ const loadCatagory = () =>{
        if(NewsFeed.length === 0){
         Noresult.classList.remove('d-none')
         spinerchanges(false)
+      
        }
        else{
         Noresult.classList.add('d-none')
+        
        }
        ContainerNewsFeed.innerHTML=``;
+       
+       const arrayLength = document.getElementById('length')
+       arrayLength.innerText = `Recent  ${NewsFeed.length } NewsItem found`
        NewsFeed.forEach(New => {
         console.log(New)
         const NewFeedDiv =document.createElement('div')
           NewFeedDiv.classList.add('row')
           NewFeedDiv.innerHTML=`
-          <div><h2>Recent  ${NewsFeed.length } NewsItem found</h2></div>
+         
           <div class="col-md-4  py-3">
           <img
             src="${New.image_url ? New.image_url :"No images Found."}"
